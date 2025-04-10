@@ -71,41 +71,54 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      body: [HomeWidget(images: images, postsModel: postsModel), null, null, null, ProfilPage()][_SelectedTab.values.indexOf(_selectedTab)],
-      
-      appBar: _SelectedTab.values.indexOf(_selectedTab) != 4 ? AppBar(
-        backgroundColor: Colors.white,
-        title: Icon(
-          Icons.auto_awesome_mosaic_rounded,
-          size: 32,
-          color: mainColor,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12, right: 16.0),
-            child: Stack(
-              children: [
-                Icon(Icons.message, size: 32, color: mainColor),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      "10",
-                      style: TextStyle(fontSize: 10, color: Colors.white),
+      body:
+          [
+            HomeWidget(images: images, postsModel: postsModel),
+            null,
+            null,
+            null,
+            ProfilPage(),
+          ][_SelectedTab.values.indexOf(_selectedTab)],
+
+      appBar:
+          _SelectedTab.values.indexOf(_selectedTab) != 4
+              ? AppBar(
+                backgroundColor: Colors.white,
+                title: Icon(
+                  Icons.auto_awesome_mosaic_rounded,
+                  size: 32,
+                  color: mainColor,
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, right: 16.0),
+                    child: Stack(
+                      children: [
+                        Icon(Icons.message, size: 32, color: mainColor),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text(
+                              "10",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ) : null,
+                ],
+              )
+              : null,
       bottomNavigationBar: CrystalNavigationBar(
         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
         onTap: _handleIndexChanged,
@@ -146,11 +159,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomeWidget extends StatelessWidget {
-  const HomeWidget({
-    super.key,
-    required this.images,
-    required this.postsModel,
-  });
+  const HomeWidget({super.key, required this.images, required this.postsModel});
 
   final List<String> images;
   final List<PostsModel> postsModel;
@@ -188,7 +197,7 @@ class HomeWidget extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24),
-            CardPostWidget(postsModel: postsModel,)
+            CardPostWidget(postsModel: postsModel),
           ],
         ),
       ),
