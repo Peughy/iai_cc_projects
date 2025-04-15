@@ -202,10 +202,8 @@ class HomePageEdima extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Wrap(
-                    spacing: 8,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    alignment: WrapAlignment.spaceBetween,
+                  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CircleAvatar(
                         backgroundColor: mainColor,
@@ -280,31 +278,26 @@ class HomePageEdima extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 24),
-                  Wrap(
-                    spacing: 8,
-                    alignment: WrapAlignment.spaceBetween,
-                    crossAxisAlignment: WrapCrossAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(
                       homeController.iconListModels2.length,
                       (index) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 8),
-                          child: Column(
-                            spacing: 6,
-                            children: [
-                              Icon(
-                                homeController.iconListModels2[index].icon,
-                                color:
-                                    homeController
-                                        .iconListModels2[index]
-                                        .color,
-                                size: 22,
-                              ),
-                              Text(
-                                homeController.iconListModels2[index].text,
-                              ),
-                            ],
-                          ),
+                        return Column(
+                          spacing: 6,
+                          children: [
+                            Icon(
+                              homeController.iconListModels2[index].icon,
+                              color:
+                                  homeController
+                                      .iconListModels2[index]
+                                      .color,
+                              size: 22,
+                            ),
+                            Text(
+                              homeController.iconListModels2[index].text,
+                            ),
+                          ],
                         );
                       },
                     ),
