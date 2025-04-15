@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iai_cc_projects/src/las_gl3c/models/posts_model.dart';
 import 'package:iai_cc_projects/src/las_gl3c/pages/card_post_widget.dart';
-import 'package:iai_cc_projects/src/las_gl3c/pages/profil_page.dart';
+import 'package:iai_cc_projects/src/las_gl3c/pages/profil_page_las.dart';
 
 enum _SelectedTab { home, search, add, notif, person }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePageLas extends StatefulWidget {
+  const HomePageLas({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageLas> createState() => _HomePageLasState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageLasState extends State<HomePageLas> {
   final mainColor = Color.fromARGB(255, 36, 36, 36);
 
   var _selectedTab = _SelectedTab.home;
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             null,
             null,
             null,
-            ProfilPage(),
+            ProfilPageLas(),
           ][_SelectedTab.values.indexOf(_selectedTab)],
 
       appBar:

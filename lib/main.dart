@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iai_cc_projects/src/las_gl3c/pages/home_page.dart';
+import 'package:iai_cc_projects/src/edima_gl3b/pages/main_page_edima.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
       ),
-      home: HomePage()
+      home: MainPageEdima()
     );
   }
 }

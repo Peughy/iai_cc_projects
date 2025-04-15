@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class ProfilPage extends StatelessWidget {
-  const ProfilPage({super.key});
+class ProfilPageLas extends StatelessWidget {
+  const ProfilPageLas({super.key});
 
   @override
   Widget build(BuildContext context) {
