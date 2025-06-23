@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iai_cc_projects/src/edima_gl3b/controllers/home_controller.dart';
+import 'package:iai_cc_projects/src/edima_gl3b/models/image_model.dart';
+import 'package:iai_cc_projects/src/edima_gl3b/services/edima_service.dart';
 
 class HomePageEdima extends StatelessWidget {
   const HomePageEdima({super.key});
@@ -198,12 +200,12 @@ class HomePageEdima extends StatelessWidget {
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16)
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
                 children: [
                   Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CircleAvatar(
                         backgroundColor: mainColor,
@@ -263,14 +265,10 @@ class HomePageEdima extends StatelessWidget {
                               Icon(
                                 homeController.iconListModels1[index].icon,
                                 color:
-                                    homeController
-                                        .iconListModels1[index]
-                                        .color,
+                                    homeController.iconListModels1[index].color,
                                 size: 22,
                               ),
-                              Text(
-                                homeController.iconListModels1[index].text,
-                              ),
+                              Text(homeController.iconListModels1[index].text),
                             ],
                           ),
                         );
@@ -289,14 +287,10 @@ class HomePageEdima extends StatelessWidget {
                             Icon(
                               homeController.iconListModels2[index].icon,
                               color:
-                                  homeController
-                                      .iconListModels2[index]
-                                      .color,
+                                  homeController.iconListModels2[index].color,
                               size: 22,
                             ),
-                            Text(
-                              homeController.iconListModels2[index].text,
-                            ),
+                            Text(homeController.iconListModels2[index].text),
                           ],
                         );
                       },
@@ -330,72 +324,73 @@ class HomePageEdima extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 24),
-                    Column(
-                      children: List.generate(
-                        homeController.historyModels.length,
-                        (index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 24),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  spacing: 12,
-                                  children: [
-                                    Image.asset(
-                                      homeController
-                                          .historyModels[index]
-                                          .image,
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          homeController
-                                              .historyModels[index]
-                                              .titre,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        Text(
-                                          homeController
-                                              .historyModels[index]
-                                              .date,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  homeController.historyModels[index].isBenef
-                                      ? "+ Rp ${homeController.historyModels[index].somme}"
-                                      : "- Rp ${homeController.historyModels[index].somme}",
-                                  style: TextStyle(
-                                    color:
-                                        homeController
-                                                .historyModels[index]
-                                                .isBenef
-                                            ? Colors.green
-                                            : Colors.red,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
+                    FutureBuilder(
+                      future: EdimaService().fetchImage(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
                             ),
                           );
-                        },
-                      ),
+                        }
+
+                        if (!snapshot.hasData) {
+                          return Text(
+                            "Pas d'image",
+                            style: TextStyle(fontSize: 20, color: Colors.red),
+                          );
+                        }
+
+                        List<ImageModel> imageModels = snapshot.data!;
+
+                        return Column(
+                          children: List.generate(imageModels.length, (index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 24),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    spacing: 12,
+                                    children: [
+                                      Image.network(
+                                        imageModels[index].downloadUrl,
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            imageModels[index].author,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          Text(
+                                            "w: ${imageModels[index].width} - h: ${imageModels[index].height}",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        );
+                      },
                     ),
                   ],
                 ),

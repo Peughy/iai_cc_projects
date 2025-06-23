@@ -54,7 +54,7 @@ class _MainPageEdimaState extends State<MainPageEdima> {
     HomePageEdima(),
     HistoryEdimaPage(),
     PocketEdimaPage(),
-    ProfilPageEdima()
+    ProfilPageEdima(),
   ];
 
   @override
@@ -94,3 +94,4 @@ class _MainPageEdimaState extends State<MainPageEdima> {
     );
   }
 }
+ 
